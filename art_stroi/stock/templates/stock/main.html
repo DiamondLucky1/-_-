@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block search %}
+
+
+<div class="header">
+  <h1 align="center">Товар на складе</h1>
+  <a href="{% url 'logout' %}"><button class="button-vhod">Выйти</button></a>
+<a href="{% url 'form' %}"><button class="button-vhod" type="#">Заявка на закуп</button></a>
+
+</div>
+
+
+<table class="highlighted" cellpadding="20%" border="5px" align="center" width="70%">
+  <thead>
+    <tr >
+      <th colspan="2">Фильтры:</th>
+      <th >
+        <form action="{% url 'product_search' %}" method="get">
+        <input type="text" name="search_query" placeholder="Введите название товара"></th>
+
+        <!-- Варианты выбора категории -->
+<!--        <form action="{% url 'product_search' %}" method="get">-->
+        <th><select name="category">
+        <option value="">Выберите категорию</option>
+         {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.category_name }}</option>
+        {% endfor %}
+        </select> </th>
+
+
+
+    <!-- Варианты выбора производителя -->
+<!--    <form action="{% url 'product_search' %}" method="get">-->
+    <th><select name="manufacturer">
+    <option value="">Выберите производителя</option>
+    {% for manufacturer in manufacturers %}
+        <option value="{{ manufacturer.id }}">{{ manufacturer.manufacturer_name }}</option>
+    {% endfor %} </select></th>
+
+        <th><button type="submit">Поиск</button></th>
+    <th colspan="2"><a href="{% url 'main' %}">Сбросить фильтры</a></th>
+
+    </tr>
+
+  </thead>
+  <tbody>
+    <tr class="bold-td">
+
+      <td>Название</td></b>
+      <td>Фото</td>
+      <td>Характеристики</td>
+      <td>Производитель</td>
+      <td>Цена</td>
+      <td>Категория</td>
+      <td>Количество</td>
+      <td>Филиал</td>
+
+    </tr>
+
+    {% for p in products %}
+    <tr>
+
+      <td>{{ p.title }}</td>
+      <td><img width="50px" height="50px" src="{{ p.photo.url }}" alt=""></td>
+      <td>{{ p.characteristic }}</td>
+      <td>{{ p.manufacturer }}</td>
+      <td>{{ p.price }}</td>
+      <td>{{ p.category }}</td>
+      <td>{{ p.amount }}</td>
+      <td>{{ p.branch }}</td>
+
+
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+<!--{% for p in products %}-->
+<!--{{p.title}}-->
+<!--{% endfor %}-->
+
+{% endblock %}

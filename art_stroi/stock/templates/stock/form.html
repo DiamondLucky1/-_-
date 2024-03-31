@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block purchase %}
+
+<a href="/main/"><button class="button-vhod">На главную</button></a>
+
+<h2 align="center">Заявка на закуп</h2>
+
+
+
+
+<!--На основе класса когда делал-->
+<!--<form action="{% url 'form' %}" method="post">-->
+<!--    {% csrf_token %} &lt;!&ndash; Важно для защиты от CSRF-атак &ndash;&gt;-->
+<!--    <label for="imya_menegera">Имя менеджера:</label><br>-->
+<!--    <input type="text" id="imya_menegera" name="imya_menegera"><br>-->
+
+<!--    <label for="naz_tovar">Наименование товара:</label><br>-->
+<!--    <input type="text" id="naz_tovar" name="naz_tovar"><br>-->
+
+<!--    <label for="kolvo_tovar">Количество товара:</label><br>-->
+<!--    <input type="text" id="kolvo_tovar" name="kolvo_tovar"><br>-->
+
+<!--    <label for="comment">Характеристика товара:</label><br>-->
+<!--    <textarea id="comment" name="comment"></textarea><br>-->
+
+<!--    <input type="submit" value="Отправить">-->
+<!--</form>-->
+
+
+<div class="centered-container">
+
+    <a href="{% url 'report1' %}"><button class="button-vhod">Скачать список товара на складе</button></a>
+    <a href="{% url 'report2' %}"><button class="button-vhod">Скачать список товара на закуп</button></a>
+
+
+{% if messages %}
+    {% for message in messages %}
+        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+    {% endfor %}
+{% endif %}
+
+
+<form class="vhod" method="post" action="{% url 'form' %}">
+    {% csrf_token %}
+
+    <div class="#">{{ form.as_p }}</div>
+
+    <p><button type="submit" class="button-vhod">Отправить</button></p>
+</form>
+</div>
+{% endblock %}

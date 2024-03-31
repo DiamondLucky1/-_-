@@ -2,10 +2,85 @@
 
 
 {% block vhod %}
+<div class="header">
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="form-container">
+    {% if not is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><button class="button-vhod" type="submit">Войти</button></p>
+</form>
+
+    {% else %}
+    <a href="{% url 'main' %}"><button class="button-vhod">На главную</button></a>
+    <a href="{% url 'logout' %}"><button class="button-vhod">Выйти</button></a>
+    {% endif %}
+</div>
+
+</div>
+{% endblock %}
+
+
+<div class="slider">
+{% block slider %}
 
 
 
-<h1> Hello world</h1>
 
+
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+
+  <div class="carousel-inner">
+    {% for p in product %}
+    <div class="carousel-item active">
+        <div style="margin:35px"  class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-5 ">
+{% for p in product %}
+    <div class="col-sm-6 ">
+    <div class="card card text-bg-primary">
+            <img src="{{p.photo.url}}" class="card-img-top customers-img" alt="{{l.title}}" />
+      <div class="card-body">
+        <a href="" class="btn btn-primary">{{p.title}}</a>
+      </div>
+    </div>
+  </div>
+
+ {% endfor %}
+</div>
+
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p></p>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+</div>
 
 {% endblock %}
+
+</div>
